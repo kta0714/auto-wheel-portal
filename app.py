@@ -8,122 +8,119 @@ st.set_page_config(page_title="HANDS & AUTO TECH PORTAL", layout="wide", initial
 
 # 세련되고 밝은 라이트 모던 테마 CSS & 하이퍼링크 스타일링
 st.markdown("""
-    <style>
-    /* 전체 배경 밝은 톤 적용 */
-    .stApp {
-        background-color: #f8fafc;
-        color: #1e293b;
-    }
-    
-    /* 실시간 뉴스 롤링 배너 스타일 */
-    .ticker-container {
-        background: #1e293b;
-        color: #ffffff;
-        padding: 12px 20px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        text-decoration: none;
-        transition: transform 0.1s ease;
-    }
-    .ticker-container:hover {
-        transform: translateY(-2px);
-    }
-    .ticker-badge {
-        background-color: #03cf5d;
-        color: #ffffff;
-        font-weight: bold;
-        padding: 4px 10px;
-        border-radius: 4px;
-        margin-right: 15px;
-        font-size: 0.85rem;
-        white-space: nowrap;
-    }
-    .ticker-text {
-        font-size: 0.95rem;
-        font-weight: 500;
-        color: #f1f5f9;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+<style>
+.stApp {
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+.ticker-container {
+    background: #1e293b;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-decoration: none;
+    transition: transform 0.1s ease;
+}
+.ticker-container:hover {
+    transform: translateY(-2px);
+}
+.ticker-badge {
+    background-color: #03cf5d;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-right: 15px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+.ticker-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #f1f5f9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.hero-banner {
+    background: linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%),
+                url('https://raw.githubusercontent.com/kta0714/auto-wheel-portal/main/original.png');
+    background-size: cover;
+    background-position: center;
+    padding: 50px 40px;
+    border-radius: 16px;
+    color: #ffffff;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: block;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.hero-banner:hover {
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    filter: brightness(1.03);
+}
+.hero-title {
+    color: #ffffff;
+    font-size: 2.6rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.hero-subtitle {
+    color: #38bdf8;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.hero-desc {
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    max-width: 700px;
+    line-height: 1.5;
+}
+.weather-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+.news-box {
+    background-color: #ffffff;
+    border-left: 4px solid #0284c7;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    display: block;
+    text-decoration: none;
+    color: #1e293b;
+    transition: all 0.15s ease;
+}
+.news-box:hover {
+    background-color: #f1f5f9;
+    border-left-color: #03cf5d;
+    color: #0284c7;
+}
+</style>""", unsafe_allow_html=True)
 
-    /* 핸즈 휠 이미지가 적용된 메인 히어로 배너 */
-    .hero-banner {
-        background: linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%), 
-                    url('https://raw.githubusercontent.com/kta0714/auto-wheel-portal/main/original.png');
-        background-size: cover;
-        background-position: center;
-        padding: 50px 40px;
-        border-radius: 16px;
-        color: #ffffff;
-        margin-bottom: 25px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        display: block;
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-    .hero-banner:hover {
-        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-        filter: brightness(1.03);
-    }
-    .hero-title {
-        color: #ffffff;
-        font-size: 2.6rem;
-        font-weight: 800;
-        margin-bottom: 10px;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    }
-    .hero-subtitle {
-        color: #38bdf8;
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 15px;
-    }
-    .hero-desc {
-        color: #e2e8f0;
-        font-size: 0.95rem;
-        max-width: 700px;
-        line-height: 1.5;
-    }
+# URL 생성 함수 (한글 안전 인코딩)
+def get_naver_news_url(query):
+    return f"https://search.naver.com/search.naver?where=news&query={urllib.parse.quote(query)}"
 
-    /* 날씨 카드 */
-    .weather-card {
-        background-color: #ffffff;
-        border-radius: 10px;
-        padding: 14px;
-        text-align: center;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-    }
-    
-    /* 뉴스 카드 스타일 (클릭 가능 링크) */
-    .news-box {
-        background-color: #ffffff;
-        border-left: 4px solid #0284c7;
-        padding: 12px 16px;
-        margin-bottom: 10px;
-        border-radius: 6px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        display: block;
-        text-decoration: none;
-        color: #1e293b;
-        transition: all 0.15s ease;
-    }
-    .news-box:hover {
-        background-color: #f1f5f9;
-        border-left-color: #03cf5d;
-        color: #0284c7;
-    }
-    </style>
-""", unsafe_allow_html=True)
+def get_google_url(query):
+    return f"https://www.google.com/search?q={urllib.parse.quote(query)}"
 
-# 1. 네이버 스타일 실시간 뉴스 롤링 배너 (클릭 시 뉴스 검색으로 연결)
-st.markdown("""
-    <a href="https://search.naver.com/search.naver?where=news&query=%ED%95%B8%EC%AF%88%EC%BD%94%ED%8D%BC%EB%A0%88%EC%9D%B4%EC%85%98" target="_blank" style="text-decoration: none;">
+# 1. 실시간 속보 배너
+st.markdown(f"""
+    <a href="{get_naver_news_url('핸즈코퍼레이션')}" target="_blank" style="text-decoration: none;">
         <div class="ticker-container">
             <div class="ticker-badge">⚡ 실시간 속보</div>
             <div class="ticker-text">[핸즈코퍼레이션] 모로코 탕헤르 공장 자동화 OEM 알루미늄 휠 라인 가동률 최적화 추진 &nbsp;|&nbsp; [현대차그룹] EV 전용 고강도 경량 휠 표준 규격 발표</div>
@@ -131,7 +128,7 @@ st.markdown("""
     </a>
 """, unsafe_allow_html=True)
 
-# 2. 핸즈 휠 히어로 배너 (클릭 시 핸즈코퍼레이션 공식 홈페이지로 연결)
+# 2. 메인 히어로 배너
 st.markdown("""
     <a href="http://www.handscorp.co.kr" target="_blank" class="hero-banner">
         <div class="hero-title">🛞 HANDS & AUTO TECH PORTAL</div>
@@ -143,24 +140,24 @@ st.markdown("""
     </a>
 """, unsafe_allow_html=True)
 
-# 3. 주요 실시간 뉴스 섹션 (국내/해외 클릭 링크 반영)
+# 3. 주요 실시간 뉴스
 st.subheader("📰 자동차 및 부품 제조업 주요 뉴스")
 n_tab1, n_tab2 = st.tabs(["🇰🇷 국내 주요 뉴스", "🌐 해외 주요 뉴스"])
 
 with n_tab1:
-    st.markdown("<a href='https://search.naver.com/search.naver?where=news&query=%ED%95%B8%EC%AF%88%EC%BD%94%ED%8D%BC%EB%A0%88%EC%9D%B4%EC%85%98+%EB%AA%A8%EB%A1%9C%EC%BD%94' target='_blank' class='news-box'><b>[핸즈코퍼레이션]</b> 모로코 탕헤르 공장 연간 300만개 캐파 고강도 LPDC 휠 품질 안정화 ↗</a>", unsafe_allow_html=True)
-    st.markdown("<a href='https://search.naver.com/search.naver?where=news&query=%ED%98%84%EB%8C%80%EC%B0%A8+%EC%95%8C%EB%A3%A8%EB%AF%B8%EB%80%B8+%ED%9C%A1' target='_blank' class='news-box'><b>[현대차/기아]</b> E-GMP 차세대 전기차용 대구경 알루미늄 휠 내구성 최신 기준 수립 ↗</a>", unsafe_allow_html=True)
-    st.markdown("<a href='https://search.naver.com/search.naver?where=news&query=IATF16949+%EC%9E%90%EB%8F%99%EC%B0%A8' target='_blank' class='news-box'><b>[제조업/인증]</b> 자동차 부품사 대상 IATF 16949 & ISO 14001 통합 심사 가이드라인 ↗</a>", unsafe_allow_html=True)
+    st.markdown(f"<a href='{get_naver_news_url('핸즈코퍼레이션 모로코')}' target='_blank' class='news-box'><b>[핸즈코퍼레이션]</b> 모로코 탕헤르 공장 연간 300만개 캐파 고강도 LPDC 휠 품질 안정화 ↗</a>", unsafe_allow_html=True)
+    st.markdown(f"<a href='{get_naver_news_url('현대차 알루미늄 휠')}' target='_blank' class='news-box'><b>[현대차/기아]</b> E-GMP 차세대 전기차용 대구경 알루미늄 휠 내구성 최신 기준 수립 ↗</a>", unsafe_allow_html=True)
+    st.markdown(f"<a href='{get_naver_news_url('IATF16949 자동차')}' target='_blank' class='news-box'><b>[제조업/인증]</b> 자동차 부품사 대상 IATF 16949 & ISO 14001 통합 심사 가이드라인 ↗</a>", unsafe_allow_html=True)
 
 with n_tab2:
-    st.markdown("<a href='https://www.google.com/search?q=EU+automobile+aluminum+wheel+carbon+neutral' target='_blank' class='news-box'><b>[EU 규제]</b> 탄소중립 대응을 위한 알루미늄 재활용 휠 및 친환경 주조 공정 확대 ↗</a>", unsafe_allow_html=True)
-    st.markdown("<a href='https://www.google.com/search?q=Tangier+Automotive+City+Hands+Corp' target='_blank' class='news-box'><b>[Morocco Auto]</b> 탕헤르 자동차 산업단지 글로벌 OEM 부품 공급망 강화 ↗</a>", unsafe_allow_html=True)
-    st.markdown("<a href='https://www.google.com/search?q=Tesla+Toyota+aluminum+wheel+spec' target='_blank' class='news-box'><b>[Global OEM]</b> 테슬라·도요타, 차세대 EV 전동화 플랫폼 경량화 휠 채택 발표 ↗</a>", unsafe_allow_html=True)
+    st.markdown(f"<a href='{get_google_url('EU 자동차 알루미늄 휠 탄소중립')}' target='_blank' class='news-box'><b>[EU 규제]</b> 탄소중립 대응을 위한 알루미늄 재활용 휠 및 친환경 주조 공정 확대 ↗</a>", unsafe_allow_html=True)
+    st.markdown(f"<a href='{get_google_url('Tangier Automotive City Hands Corp')}' target='_blank' class='news-box'><b>[Morocco Auto]</b> 탕헤르 자동차 산업단지 글로벌 OEM 부품 공급망 강화 ↗</a>", unsafe_allow_html=True)
+    st.markdown(f"<a href='{get_google_url('Tesla Toyota aluminum wheel spec')}' target='_blank' class='news-box'><b>[Global OEM]</b> 테슬라·도요타, 차세대 EV 전동화 플랫폼 경량화 휠 채택 발표 ↗</a>", unsafe_allow_html=True)
 
 st.markdown("---")
 
-# 4. 모로코 탕헤르(Tangier) 현지 시각 및 일주일 날씨
-morocco_tz = timezone(timedelta(hours=1)) # Tangier UTC+1
+# 4. 모로코 탕헤르 시간 및 날씨
+morocco_tz = timezone(timedelta(hours=1))
 tangier_time = datetime.now(morocco_tz)
 
 st.subheader("🇲🇦 모로코 탕헤르(Tangier) 현지 시각 & 주간 날씨 예보")
@@ -179,13 +176,8 @@ weather_data = [
 w_cols = st.columns(7)
 for idx, w in enumerate(weather_data):
     with w_cols[idx]:
-        st.markdown(f"""
-            <div class='weather-card'>
-                <div style='font-size:0.85rem; color:#64748b; font-weight:600;'>{w['day']}</div>
-                <div style='font-size:1.2rem; margin:6px 0;'>{w['weather']}</div>
-                <div style='font-size:0.85rem; color:#0f172a; font-weight:bold;'>{w['temp']}</div>
-            </div>
-        """, unsafe_allow_html=True)
+        card_html = f"""<div class='weather-card'><div style='font-size:0.85rem; color:#64748b; font-weight:600;'>{w['day']}</div><div style='font-size:1.2rem; margin:6px 0;'>{w['weather']}</div><div style='font-size:0.85rem; color:#0f172a; font-weight:bold;'>{w['temp']}</div></div>"""
+        st.markdown(card_html, unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -208,7 +200,7 @@ with b_col6:
 
 st.write("")
 
-# 6. 검색창 (엔터 + 돋보기 검색)
+# 6. 검색창
 st.subheader("🔎 기술 정보 및 데이터 검색")
 s_col1, s_col2 = st.columns([5, 1])
 
@@ -220,7 +212,6 @@ with s_col2:
 st.caption("💡 인기 키워드: 핸즈 | 핸즈코퍼레이션 | 모로코 | 현대자동차 | 저압 주조 | T6 열처리 | IATF 16949")
 st.markdown("---")
 
-# 데이터베이스
 @st.cache_data
 def load_data():
     return pd.DataFrame([
@@ -237,7 +228,6 @@ def load_data():
 
 df = load_data()
 
-# 검색 실행 로직
 if search_input or search_button:
     search_query = search_input.strip()
     if search_query:
@@ -262,11 +252,10 @@ if search_input or search_button:
         else:
             st.info("포털 내부 데이터베이스에는 관련 문서가 없습니다. 아래 외부 포털 연계 버튼을 이용해 보세요.")
 
-        # 외부 검색 포털 바로가기 연계
         st.write("")
         st.markdown(f"#### 🔗 외부 포털에서 **'{search_query}'** 연계 검색하기")
         encoded_query = urllib.parse.quote(search_query)
-        
+
         ec1, ec2, ec3, ec4 = st.columns(4)
         with ec1:
             st.link_button(f"💚 네이버 검색", f"https://search.naver.com/search.naver?query={encoded_query}", use_container_width=True)
