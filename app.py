@@ -6,66 +6,134 @@ from datetime import datetime, timedelta, timezone
 
 st.set_page_config(page_title="HANDS & AUTO TECH PORTAL", layout="wide", initial_sidebar_state="collapsed")
 
-# Custom CSS for styling
+# 세련되고 밝은 라이트 모던 테마 CSS
 css_style = """<style>
-.main-header {
-    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)), 
-                url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1600');
+/* 전체 배경 밝은 톤 적용 */
+.stApp {
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+/* 실시간 뉴스 롤링 배너 스타일 */
+.ticker-container {
+    background: #1e293b;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.ticker-badge {
+    background-color: #03cf5d;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-right: 15px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+.ticker-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #f1f5f9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 핸즈 휠 이미지가 적용된 메인 히어로 배너 */
+.hero-banner {
+    background: linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%),
+                url('https://raw.githubusercontent.com/kta0714/auto-wheel-portal/main/original.png');
     background-size: cover;
     background-position: center;
-    padding: 40px;
-    border-radius: 12px;
-    color: white;
-    text-align: center;
+    padding: 50px 40px;
+    border-radius: 16px;
+    color: #ffffff;
     margin-bottom: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
+.hero-title {
+    color: #ffffff;
+    font-size: 2.6rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.hero-subtitle {
+    color: #38bdf8;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.hero-desc {
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    max-width: 700px;
+    line-height: 1.5;
+}
+
+/* 날씨 및 카드 스타일 */
 .weather-card {
-    background-color: #1e222d;
-    border-radius: 8px;
-    padding: 12px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 14px;
     text-align: center;
-    border: 1px solid #2d3345;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
 }
-.news-card {
-    background-color: #181b24;
-    border-left: 4px solid #03cf5d;
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    border-radius: 4px;
+
+/* 뉴스 카드 스타일 */
+.news-box {
+    background-color: #ffffff;
+    border-left: 4px solid #0284c7;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
 }
 </style>"""
 st.markdown(css_style, unsafe_allow_html=True)
 
-# 1. 맨 상단 주요 뉴스
-st.subheader("📰 최신 자동차 및 제조업 주요 뉴스")
-n_col1, n_col2 = st.columns(2)
+# 1. 네이버 스타일 실시간 뉴스 롤링 배너
+ticker_html = """<div class='ticker-container'>
+    <div class='ticker-badge'>⚡ 실시간 속보</div>
+    <div class='ticker-text'>[핸즈코퍼레이션] 모로코 탕헤르 공장 자동화 OEM 알루미늄 휠 라인 가동률 최적화 추진 &nbsp;|&nbsp; [현대차그룹] EV 전용 고강도 경량 휠 표준 규격 발표</div>
+</div>"""
+st.markdown(ticker_html, unsafe_allow_html=True)
 
-with n_col1:
-    st.markdown("#### 🇰🇷 국내 주요 뉴스")
-    st.markdown("<div class='news-card'><b>[현대차/기아]</b> 차세대 알루미늄 휠 경량화 및 전기차 전용 에어로 휠 표준 채택</div>", unsafe_allow_html=True)
-    st.markdown("<div class='news-card'><b>[제조업/인증]</b> IATF 16949 및 ISO 14001 품질·환경 통합 실사 가이드라인 발표</div>", unsafe_allow_html=True)
-    st.markdown("<div class='news-card'><b>[자동차부품]</b> 글로벌 휠 시장 고강도 알루미늄 합금(A356) 수요 가속화</div>", unsafe_allow_html=True)
-
-with n_col2:
-    st.markdown("#### 🌐 해외 주요 뉴스")
-    st.markdown("<div class='news-card'><b>[EU 규격]</b> 유럽 자동차 제조업체 탄소 배출 규제에 따른 알루미늄 재활용 휠 적용 의무화</div>", unsafe_allow_html=True)
-    st.markdown("<div class='news-card'><b>[Morocco Auto]</b> 탕헤르(Tangier) 자동차 산업단지 OEM 알루미늄 휠 캐파 확충</div>", unsafe_allow_html=True)
-    st.markdown("<div class='news-card'><b>[Global OEM]</b> 테슬라·도요타, 차세대 EV 플랫폼용 대구경 저압주조 휠 채택</div>", unsafe_allow_html=True)
-
-st.markdown("---")
-
-# 2. 배경 및 히어로 섹션
-hero_html = """<div class='main-header'>
-    <h1 style='color: #03cf5d; font-size: 2.8rem; margin-bottom: 10px;'>🛞 HANDS & AUTO WHEEL TECH PORTAL</h1>
-    <h3 style='color: #ffffff; font-weight: 300;'>핸즈코퍼레이션 (본사 / 모로코 탕헤르 공장) & 글로벌 OEM 알루미늄 휠 기술 포털</h3>
-    <p style='color: #ddd; font-size: 0.95rem; margin-top: 15px;'>
-        모로코 탕헤르 연간 300만 개 캐파 · 고강도 LPDC 알루미늄 휠 · IATF 16949 품질 보증
-    </p>
+# 2. 핸즈 휠 이미지 전면 적용 히어로 배너
+hero_html = """<div class='hero-banner'>
+    <div class='hero-title'>🛞 HANDS & AUTO TECH PORTAL</div>
+    <div class='hero-subtitle'>Creative all by HANDS — 글로벌 OEM 알루미늄 휠 기술 포털</div>
+    <div class='hero-desc'>
+        핸즈코퍼레이션 본사 및 모로코 탕헤르 연간 300만 개 캐파 전용 포털<br>
+        저압주조(LPDC) · 단조 · T6 열처리 · IATF 16949 / ISO 품질·환경 표준 통합 매뉴얼
+    </div>
 </div>"""
 st.markdown(hero_html, unsafe_allow_html=True)
 
-# 3. 모로코 탕헤르(Tangier) 시간 및 날씨 정보
+# 3. 주요 실시간 뉴스 섹션 (국내/해외)
+st.subheader("📰 자동차 및 부품 제조업 주요 뉴스")
+n_tab1, n_tab2 = st.tabs(["🇰🇷 국내 주요 뉴스", "🌐 해외 주요 뉴스"])
+
+with n_tab1:
+    st.markdown("<div class='news-box'><b>[핸즈코퍼레이션]</b> 모로코 탕헤르 공장 연간 300만개 캐파 고강도 LPDC 휠 품질 안정화</div>", unsafe_allow_html=True)
+    st.markdown("<div class='news-box'><b>[현대차/기아]</b> E-GMP 차세대 전기차용 대구경 알루미늄 휠 내구성 최신 기준 수립</div>", unsafe_allow_html=True)
+    st.markdown("<div class='news-box'><b>[제조업/인증]</b> 자동차 부품사 대상 IATF 16949 & ISO 14001 통합 심사 가이드라인</div>", unsafe_allow_html=True)
+
+with n_tab2:
+    st.markdown("<div class='news-box'><b>[EU 규제]</b> 탄소중립 대응을 위한 알루미늄 재활용 휠 및 친환경 주조 공정 확대</div>", unsafe_allow_html=True)
+    st.markdown("<div class='news-box'><b>[Morocco Auto]</b> 탕헤르 자동차 산업단지 글로벌 OEM 부품 공급망 강화</div>", unsafe_allow_html=True)
+    st.markdown("<div class='news-box'><b>[Global OEM]</b> 테슬라·도요타, 차세대 EV 전동화 플랫폼 경량화 휠 채택 발표</div>", unsafe_allow_html=True)
+
+st.markdown("---")
+
+# 4. 모로코 탕헤르(Tangier) 현지 시각 및 일주일 날씨
 morocco_tz = timezone(timedelta(hours=1))
 tangier_time = datetime.now(morocco_tz)
 
@@ -90,7 +158,7 @@ for idx, w in enumerate(weather_data):
 
 st.markdown("---")
 
-# 4. 주요 OEM 바로가기
+# 5. 주요 OEM 바로가기
 st.subheader("🌐 주요 OEM 및 품질/인증 바로가기")
 b_col1, b_col2, b_col3, b_col4, b_col5, b_col6 = st.columns(6)
 
