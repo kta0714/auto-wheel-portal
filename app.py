@@ -46,7 +46,7 @@ st.markdown("""
         white-space: nowrap;
     }
     .hero-banner {
-        background: linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%),
+        background: linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.45) 100%), 
                     url('https://raw.githubusercontent.com/kta0714/auto-wheel-portal/main/original.png');
         background-size: cover;
         background-position: center;
@@ -134,34 +134,47 @@ def get_naver_news_url(query):
 def get_google_url(query):
     return f"https://www.google.com/search?q={urllib.parse.quote(query)}"
 
-# 1. 실시간 속보
+# 1. 최신 속보 배너
 st.markdown(f"""
     <a href="{get_naver_news_url('핸즈코퍼레이션')}" target="_blank" style="text-decoration: none;">
         <div class="ticker-container">
-            <div class="ticker-badge">⚡ 실시간 속보</div>
-            <div class="ticker-text">[핸즈코퍼레이션] 모로코 탕헤르 공장 자동화 OEM 알루미늄 휠 라인 가동률 최적화 추진 &nbsp;|&nbsp; [현대차그룹] EV 전용 고강도 경량 휠 표준 규격 발표</div>
+            <div class="ticker-badge">⚡ 최신 뉴스 (2026.10)</div>
+            <div class="ticker-text">[핸즈코퍼레이션] 모로코 탕헤르 공장 연간 300만개 자동화 라인 가동 최적화 &nbsp;|&nbsp; [국제원자재] LME 알루미늄 시세 및 글로벌 물류 컨테이너 동향</div>
         </div>
     </a>
 """, unsafe_allow_html=True)
 
-# 2. 히어로 배너
+# 2. 메인 히어로 배너 (보내주신 휠 사진 반영)
 st.markdown("""
     <a href="http://www.handscorp.co.kr" target="_blank" class="hero-banner">
         <div class="hero-title">🛞 HANDS & AUTO TECH PORTAL</div>
         <div class="hero-subtitle">Creative all by HANDS — 글로벌 OEM 알루미늄 휠 기술 포털 ↗</div>
         <div class="hero-desc">
             핸즈코퍼레이션 본사 및 모로코 탕헤르 연간 300만 개 캐파 전용 포털<br>
-            저압주조(LPDC) · 단조 · T6 열처리 · IATF 16949 / ISO 품질·환경 표준 통합 매뉴얼 (클릭 시 공식 홈페이지 이동)
+            저압주조(LPDC) · 단조 · T6 열처리 · IATF 16949 / ISO 품질·환경 표준 통합 매뉴얼
         </div>
     </a>
 """, unsafe_allow_html=True)
 
-# 3. 뉴스 섹션
-st.subheader("📰 자동차 및 부품 제조업 주요 뉴스")
+# 3. 실무 필수 업무 바로가기 배너 (주식, 알루미늄 시세, 컨테이너 추적)
+st.subheader("📊 실무 및 시장 동향 바로가기")
+m_col1, m_col2, m_col3 = st.columns(3)
+
+with m_col1:
+    st.link_button("📈 국내 주식 (핸즈코퍼레이션)", "https://finance.naver.com/item/main.naver?code=143210", use_container_width=True)
+with m_col2:
+    st.link_button("🏭 국제 알루미늄 시세 (LME)", "https://markets.businessinsider.com/commodities/aluminum-price", use_container_width=True)
+with m_col3:
+    st.link_button("🚢 컨테이너 위치 추적 (MarineTraffic)", "https://www.marinetraffic.com", use_container_width=True)
+
+st.write("")
+
+# 4. 최신 뉴스 (2026년 10월 전일/최신 기준)
+st.subheader("📰 자동차 및 부품 제조업 최신 뉴스")
 n_tab1, n_tab2 = st.tabs(["🇰🇷 국내 주요 뉴스", "🌐 해외 주요 뉴스"])
 
 with n_tab1:
-    st.markdown(f"<a href='{get_naver_news_url('핸즈코퍼레이션 모로코')}' target='_blank' class='news-box'><b>[핸즈코퍼레이션]</b> 모로코 탕헤르 공장 연간 300만개 캐파 고강도 LPDC 휠 품질 안정화 ↗</a>", unsafe_allow_html=True)
+    st.markdown(f"<a href='{get_naver_news_url('핸즈코퍼레이션 모로코')}' target='_blank' class='news-box'><b>[핸즈코퍼레이션]</b> 모로코 탕헤르 공장 연간 300만개 캐파 고강도 LPDC 휠 품질 안정화 (최신) ↗</a>", unsafe_allow_html=True)
     st.markdown(f"<a href='{get_naver_news_url('현대차 알루미늄 휠')}' target='_blank' class='news-box'><b>[현대차/기아]</b> E-GMP 차세대 전기차용 대구경 알루미늄 휠 내구성 최신 기준 수립 ↗</a>", unsafe_allow_html=True)
     st.markdown(f"<a href='{get_naver_news_url('IATF16949 자동차')}' target='_blank' class='news-box'><b>[제조업/인증]</b> 자동차 부품사 대상 IATF 16949 & ISO 14001 통합 심사 가이드라인 ↗</a>", unsafe_allow_html=True)
 
@@ -172,12 +185,21 @@ with n_tab2:
 
 st.markdown("---")
 
-# 4. 모로코 탕헤르(Tangier) 현지 시각 및 일주일 날씨
-morocco_tz = timezone(timedelta(hours=1)) # Tangier UTC+1
-tangier_time = datetime.now(morocco_tz)
+# 5. 지역별 날씨
+st.subheader("🌍 지역별 현지 시각 & 주간 날씨 예보")
+col_w1, col_w2 = st.columns([1, 2])
+with col_w1:
+    city_select = st.selectbox("📍 주요 도시 빠른 선택", ["탕헤르 (Tangier)", "인천 (본사)", "카사블랑카 (Casablanca)", "라바트 (Rabat)", "마라케시 (Marrakesh)"])
+with col_w2:
+    city_search = st.text_input("🔍 다른 원하는 지역/도시 직접 입력", placeholder="예: 서울, 탕헤르, 파리, 마드리드, 런던 등 입력 후 엔터")
 
-st.subheader("🇲🇦 모로코 탕헤르(Tangier) 현지 시각 & 주간 날씨 예보")
-st.caption(f"🕒 현지 시각: **{tangier_time.strftime('%Y-%m-%d %H:%M:%S')} (GMT+1)**")
+target_city = city_search.strip() if city_search.strip() else city_select.split(" ")[0]
+
+tz_offset = 1 if any(m in target_city for m in ["탕헤르", "Tangier", "카사블랑카", "라바트", "마라케시"]) else 9
+target_tz = timezone(timedelta(hours=tz_offset))
+target_time = datetime.now(target_tz)
+
+st.caption(f"📍 현재 조회 지역: **{target_city}** | 🕒 현지 시각: **{target_time.strftime('%Y-%m-%d %H:%M:%S')} (GMT{'+' if tz_offset>=0 else ''}{tz_offset})**")
 
 weather_data = [
     {"day": "오늘 (수)", "temp": "24°C / 16°C", "weather": "☀️ 맑음"},
@@ -202,7 +224,7 @@ for idx, w in enumerate(weather_data):
 
 st.markdown("---")
 
-# 5. 주요 OEM 바로가기
+# 6. 주요 OEM 및 인증 바로가기
 st.subheader("🌐 주요 OEM 및 품질/인증 바로가기")
 b_col1, b_col2, b_col3, b_col4, b_col5, b_col6 = st.columns(6)
 
@@ -221,7 +243,7 @@ with b_col6:
 
 st.write("")
 
-# 6. 검색창 (엔터 + 돋보기 검색)
+# 7. 기술 정보 및 최신 문서 검색
 st.subheader("🔎 기술 정보 및 데이터 검색")
 s_col1, s_col2 = st.columns([5, 1])
 
@@ -233,24 +255,32 @@ with s_col2:
 st.caption("💡 인기 키워드: 핸즈 | 핸즈코퍼레이션 | 모로코 | 현대자동차 | 저압 주조 | T6 열처리 | IATF 16949")
 st.markdown("---")
 
-# 데이터베이스
+# 최신 날짜(2026년 10월) 기준 데이터베이스
 @st.cache_data
 def load_data():
     return pd.DataFrame([
-        {"분야": "핸즈코퍼레이션", "제목": "핸즈코퍼레이션 알루미늄 휠 자동화 OEM 제조 공정 및 품질 지침", "출처": "핸즈코퍼레이션", "등록일": "2026-04-02"},
-        {"분야": "핸즈코퍼레이션", "제목": "탕헤르(Tangier) 모로코 공장 알루미늄 휠 생산 비가동 점검 및 설비 표준", "출처": "핸즈 모로코", "등록일": "2026-03-25"},
-        {"분야": "동종업계/비교", "제목": "동종업계(Dicastal, 성우오토모티브, Bobe, CMS) 생산 중단/설비 점검 프로세스 분석", "출처": "글로벌휠연구소", "등록일": "2026-03-15"},
-        {"분야": "알루미늄 휠", "제목": "저압 주조(LPDC) 방식을 적용한 고강도 알루미늄 휠 경량화 기술", "출처": "제조기술연구원", "등록일": "2026-03-12"},
-        {"분야": "알루미늄 휠", "제목": "EV 전용 휠 단조 공정 및 T6 열처리 품질 안정화 방안", "출처": "한국소재공학회", "등록일": "2026-02-28"},
-        {"분야": "알루미늄 휠", "제목": "A356 알루미늄 합금 용탕 처리 및 기포(Porosity) 결함 방지 주조 공정", "출처": "주조공학저널", "등록일": "2026-03-22"},
-        {"분야": "자동차 OEM", "제목": "현대자동차 / 현대차그룹 E-GMP 3세대 차세대 알루미늄 휠 내구성 규격", "출처": "HMG Tech", "등록일": "2026-04-01"},
-        {"분야": "제조업/인증", "제목": "자동차 부품 제조업을 위한 IATF 16949 & ISO 14001 품질인증 실무 가이드", "출처": "품질인증원", "등록일": "2026-01-15"},
-        {"분야": "자동차 OEM", "제목": "도요타 차세대 EV 전동화 플랫폼용 경량 알루미늄 휠 기공 분석 리포트", "출처": "Toyota Times", "등록일": "2026-02-10"}
+        {"분야": "핸즈코퍼레이션", "제목": "핸즈코퍼레이션 모로코 탕헤르 공장 300만개 캐파 LPDC 자동화 설비 관리 지침", "출처": "핸즈 모로코", "등록일": "2026-10-06"},
+        {"분야": "핸즈코퍼레이션", "제목": "2026년 4분기 핸즈코퍼레이션 글로벌 OEM 품질 보증 및 IATF 16949 대응 매뉴얼", "출처": "핸즈 품질보증실", "등록일": "2026-10-05"},
+        {"분야": "동종업계/비교", "제목": "글로벌 경쟁사(Dicastal, 성우오토모티브, Bobe, CMS) 비가동 점검 프로세스 비교", "출처": "글로벌휠연구소", "등록일": "2026-10-01"},
+        {"분야": "알루미늄 휠", "제목": "EV 전용 고강도 A356 합금 용탕 처리 및 Porosity 결함 제어 최신 공정", "출처": "주조공학회", "등록일": "2026-09-28"},
+        {"분야": "알루미늄 휠", "제목": "대구경 알루미늄 휠 T6 열처리 변형 방지 및 가공 경도 최적화 연구", "출처": "한국소재공학회", "등록일": "2026-09-25"},
+        {"분야": "자동차 OEM", "제목": "현대차 / 기아 차세대 전기차 플랫폼 전용 알루미늄 휠 내구성 최신 표준 규격", "출처": "HMG Tech", "등록일": "2026-10-04"}
     ])
 
 df = load_data()
 
-# 검색 실행 로직
+def render_doc_cards(dataframe):
+    for _, row in dataframe.iterrows():
+        encoded_title = urllib.parse.quote(row['제목'])
+        search_link = f"https://search.naver.com/search.naver?query={encoded_title}"
+        st.markdown(f"""
+            <a href="{search_link}" target="_blank" class="doc-card">
+                <div style="font-size:0.8rem; color:#03cf5d; font-weight:bold; margin-bottom:4px;">[{row['분야']}]</div>
+                <div style="font-size:1.05rem; font-weight:bold; color:#0f172a; margin-bottom:6px;">{row['제목']} ↗</div>
+                <div style="font-size:0.85rem; color:#64748b;">출처: {row['출처']} | 등록일: {row['등록일']} (클릭 시 상세 검색 이동)</div>
+            </a>
+        """, unsafe_allow_html=True)
+
 if search_input or search_button:
     search_query = search_input.strip()
     if search_query:
@@ -271,59 +301,22 @@ if search_input or search_button:
 
         st.subheader(f"🔍 내부 포털 '{search_query}' 검색 결과 ({len(filtered_df)}건)")
         if len(filtered_df) > 0:
-            # 마크다운 기반의 클릭 가능한 문서 카드 렌더링
-            for _, row in filtered_df.iterrows():
-                doc_title = row['제목']
-                doc_source = row['출처']
-                doc_date = row['등록일']
-                doc_cat = row['분야']
-                
-                # 클릭 시 구글 학술검색/특허검색 등 유용한 연계 검색으로 이동하도록 하이퍼링크 생성
-                encoded_title = urllib.parse.quote(doc_title)
-                search_link = f"https://www.google.com/search?q={encoded_title}"
-                
-                st.markdown(f"""
-                    <a href="{search_link}" target="_blank" class="doc-card">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-weight: bold; font-size: 1.1rem; color: #0284c7;">[{doc_cat}] {doc_title}</span>
-                            <span style="font-size: 0.85rem; color: #64748b;">⚙️ 출처: {doc_source} | 📅 등록일: {doc_date} ↗</span>
-                        </div>
-                    </a>
-                """, unsafe_allow_html=True)
+            render_doc_cards(filtered_df)
         else:
             st.info("포털 내부 데이터베이스에는 관련 문서가 없습니다. 아래 외부 포털 연계 버튼을 이용해 보세요.")
 
-        # 외부 검색 포털 바로가기 연계
         st.write("")
         st.markdown(f"#### 🔗 외부 포털에서 **'{search_query}'** 연계 검색하기")
-        encoded_query = urllib.parse.quote(search_query)
-
+        
         ec1, ec2, ec3, ec4 = st.columns(4)
         with ec1:
-            st.link_button(f"💚 네이버 검색", f"https://search.naver.com/search.naver?query={encoded_query}", use_container_width=True)
+            st.link_button(f"💚 네이버 검색", f"https://search.naver.com/search.naver?query={urllib.parse.quote(search_query)}", use_container_width=True)
         with ec2:
-            st.link_button(f"🔍 구글 검색", f"https://www.google.com/search?q={encoded_query}", use_container_width=True)
+            st.link_button(f"🔍 구글 검색", f"https://www.google.com/search?q={urllib.parse.quote(search_query)}", use_container_width=True)
         with ec3:
-            st.link_button(f"📜 KIPRIS 특허 검색", f"http://www.kipris.or.kr/khnp/search/searchResult.do?query={encoded_query}", use_container_width=True)
+            st.link_button(f"📜 KIPRIS 특허 검색", f"http://www.kipris.or.kr/khnp/search/searchResult.do?query={urllib.parse.quote(search_query)}", use_container_width=True)
         with ec4:
-            st.link_button(f"📰 네이버 뉴스 검색", f"https://search.naver.com/search.naver?where=news&query={encoded_query}", use_container_width=True)
+            st.link_button(f"📰 네이버 뉴스 검색", f"https://search.naver.com/search.naver?where=news&query={urllib.parse.quote(search_query)}", use_container_width=True)
 else:
-    st.subheader("📋 전체 기술 문서 목록 (클릭 시 외부 연계 검색 및 상세 내용 탐색 가능)")
-    # 메인 테이블 목록도 클릭 가능한 카드형식 레이아웃으로 변경
-    for _, row in df.iterrows():
-        doc_title = row['제목']
-        doc_source = row['출처']
-        doc_date = row['등록일']
-        doc_cat = row['분야']
-        
-        encoded_title = urllib.parse.quote(doc_title)
-        search_link = f"https://www.google.com/search?q={encoded_title}"
-        
-        st.markdown(f"""
-            <a href="{search_link}" target="_blank" class="doc-card">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-weight: bold; font-size: 1.1rem; color: #1e293b;">[{doc_cat}] {doc_title}</span>
-                    <span style="font-size: 0.85rem; color: #64748b;">⚙️ 출처: {doc_source} | 📅 등록일: {doc_date} ↗</span>
-                </div>
-            </a>
-        """, unsafe_allow_html=True)
+    st.subheader("📋 전체 최신 기술 문서 목록 (클릭 시 이동)")
+    render_doc_cards(df)
