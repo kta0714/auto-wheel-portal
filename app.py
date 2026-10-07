@@ -6,119 +6,135 @@ from datetime import datetime, timedelta, timezone
 
 st.set_page_config(page_title="HANDS & AUTO TECH PORTAL", layout="wide", initial_sidebar_state="collapsed")
 
-# 세련되고 밝은 라이트 모던 테마 CSS & 하이퍼링크 스타일링
 st.markdown("""
-<style>
-.stApp {
-    background-color: #f8fafc;
-    color: #1e293b;
-}
-.ticker-container {
-    background: #1e293b;
-    color: #ffffff;
-    padding: 12px 20px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    text-decoration: none;
-    transition: transform 0.1s ease;
-}
-.ticker-container:hover {
-    transform: translateY(-2px);
-}
-.ticker-badge {
-    background-color: #03cf5d;
-    color: #ffffff;
-    font-weight: bold;
-    padding: 4px 10px;
-    border-radius: 4px;
-    margin-right: 15px;
-    font-size: 0.85rem;
-    white-space: nowrap;
-}
-.ticker-text {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #f1f5f9;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.hero-banner {
-    background: linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%),
-                url('https://raw.githubusercontent.com/kta0714/auto-wheel-portal/main/original.png');
-    background-size: cover;
-    background-position: center;
-    padding: 50px 40px;
-    border-radius: 16px;
-    color: #ffffff;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    display: block;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-.hero-banner:hover {
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-    filter: brightness(1.03);
-}
-.hero-title {
-    color: #ffffff;
-    font-size: 2.6rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-.hero-subtitle {
-    color: #38bdf8;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-.hero-desc {
-    color: #e2e8f0;
-    font-size: 0.95rem;
-    max-width: 700px;
-    line-height: 1.5;
-}
-.weather-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 14px;
-    text-align: center;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-}
-.news-box {
-    background-color: #ffffff;
-    border-left: 4px solid #0284c7;
-    padding: 12px 16px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-    display: block;
-    text-decoration: none;
-    color: #1e293b;
-    transition: all 0.15s ease;
-}
-.news-box:hover {
-    background-color: #f1f5f9;
-    border-left-color: #03cf5d;
-    color: #0284c7;
-}
-</style>""", unsafe_allow_html=True)
+    <style>
+    .stApp {
+        background-color: #f8fafc;
+        color: #1e293b;
+    }
+    .ticker-container {
+        background: #1e293b;
+        color: #ffffff;
+        padding: 12px 20px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        text-decoration: none;
+        transition: transform 0.1s ease;
+    }
+    .ticker-container:hover {
+        transform: translateY(-2px);
+    }
+    .ticker-badge {
+        background-color: #03cf5d;
+        color: #ffffff;
+        font-weight: bold;
+        padding: 4px 10px;
+        border-radius: 4px;
+        margin-right: 15px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+    .ticker-text {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #f1f5f9;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .hero-banner {
+        background: linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%),
+                    url('https://raw.githubusercontent.com/kta0714/auto-wheel-portal/main/original.png');
+        background-size: cover;
+        background-position: center;
+        padding: 50px 40px;
+        border-radius: 16px;
+        color: #ffffff;
+        margin-bottom: 25px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        display: block;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    .hero-banner:hover {
+        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        filter: brightness(1.03);
+    }
+    .hero-title {
+        color: #ffffff;
+        font-size: 2.6rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .hero-subtitle {
+        color: #38bdf8;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    .hero-desc {
+        color: #e2e8f0;
+        font-size: 0.95rem;
+        max-width: 700px;
+        line-height: 1.5;
+    }
+    .weather-card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 14px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+    .news-box {
+        background-color: #ffffff;
+        border-left: 4px solid #0284c7;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        display: block;
+        text-decoration: none;
+        color: #1e293b;
+        transition: all 0.15s ease;
+    }
+    .news-box:hover {
+        background-color: #f1f5f9;
+        border-left-color: #03cf5d;
+        color: #0284c7;
+    }
+    .doc-card {
+        background-color: #ffffff;
+        padding: 15px 20px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        display: block;
+        text-decoration: none;
+        color: #1e293b;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        transition: all 0.15s ease;
+    }
+    .doc-card:hover {
+        border-color: #03cf5d;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        background-color: #f8fafc;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-# URL 생성 함수 (한글 안전 인코딩)
 def get_naver_news_url(query):
     return f"https://search.naver.com/search.naver?where=news&query={urllib.parse.quote(query)}"
 
 def get_google_url(query):
     return f"https://www.google.com/search?q={urllib.parse.quote(query)}"
 
-# 1. 실시간 속보 배너
+# 1. 실시간 속보
 st.markdown(f"""
     <a href="{get_naver_news_url('핸즈코퍼레이션')}" target="_blank" style="text-decoration: none;">
         <div class="ticker-container">
@@ -128,7 +144,7 @@ st.markdown(f"""
     </a>
 """, unsafe_allow_html=True)
 
-# 2. 메인 히어로 배너
+# 2. 히어로 배너
 st.markdown("""
     <a href="http://www.handscorp.co.kr" target="_blank" class="hero-banner">
         <div class="hero-title">🛞 HANDS & AUTO TECH PORTAL</div>
@@ -140,7 +156,7 @@ st.markdown("""
     </a>
 """, unsafe_allow_html=True)
 
-# 3. 주요 실시간 뉴스
+# 3. 뉴스 섹션
 st.subheader("📰 자동차 및 부품 제조업 주요 뉴스")
 n_tab1, n_tab2 = st.tabs(["🇰🇷 국내 주요 뉴스", "🌐 해외 주요 뉴스"])
 
@@ -156,8 +172,8 @@ with n_tab2:
 
 st.markdown("---")
 
-# 4. 모로코 탕헤르 시간 및 날씨
-morocco_tz = timezone(timedelta(hours=1))
+# 4. 모로코 탕헤르(Tangier) 현지 시각 및 일주일 날씨
+morocco_tz = timezone(timedelta(hours=1)) # Tangier UTC+1
 tangier_time = datetime.now(morocco_tz)
 
 st.subheader("🇲🇦 모로코 탕헤르(Tangier) 현지 시각 & 주간 날씨 예보")
@@ -176,8 +192,13 @@ weather_data = [
 w_cols = st.columns(7)
 for idx, w in enumerate(weather_data):
     with w_cols[idx]:
-        card_html = f"""<div class='weather-card'><div style='font-size:0.85rem; color:#64748b; font-weight:600;'>{w['day']}</div><div style='font-size:1.2rem; margin:6px 0;'>{w['weather']}</div><div style='font-size:0.85rem; color:#0f172a; font-weight:bold;'>{w['temp']}</div></div>"""
-        st.markdown(card_html, unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class='weather-card'>
+                <div style='font-size:0.85rem; color:#64748b; font-weight:600;'>{w['day']}</div>
+                <div style='font-size:1.2rem; margin:6px 0;'>{w['weather']}</div>
+                <div style='font-size:0.85rem; color:#0f172a; font-weight:bold;'>{w['temp']}</div>
+            </div>
+        """, unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -200,7 +221,7 @@ with b_col6:
 
 st.write("")
 
-# 6. 검색창
+# 6. 검색창 (엔터 + 돋보기 검색)
 st.subheader("🔎 기술 정보 및 데이터 검색")
 s_col1, s_col2 = st.columns([5, 1])
 
@@ -212,6 +233,7 @@ with s_col2:
 st.caption("💡 인기 키워드: 핸즈 | 핸즈코퍼레이션 | 모로코 | 현대자동차 | 저압 주조 | T6 열처리 | IATF 16949")
 st.markdown("---")
 
+# 데이터베이스
 @st.cache_data
 def load_data():
     return pd.DataFrame([
@@ -228,6 +250,7 @@ def load_data():
 
 df = load_data()
 
+# 검색 실행 로직
 if search_input or search_button:
     search_query = search_input.strip()
     if search_query:
@@ -248,10 +271,29 @@ if search_input or search_button:
 
         st.subheader(f"🔍 내부 포털 '{search_query}' 검색 결과 ({len(filtered_df)}건)")
         if len(filtered_df) > 0:
-            st.dataframe(filtered_df, use_container_width=True)
+            # 마크다운 기반의 클릭 가능한 문서 카드 렌더링
+            for _, row in filtered_df.iterrows():
+                doc_title = row['제목']
+                doc_source = row['출처']
+                doc_date = row['등록일']
+                doc_cat = row['분야']
+                
+                # 클릭 시 구글 학술검색/특허검색 등 유용한 연계 검색으로 이동하도록 하이퍼링크 생성
+                encoded_title = urllib.parse.quote(doc_title)
+                search_link = f"https://www.google.com/search?q={encoded_title}"
+                
+                st.markdown(f"""
+                    <a href="{search_link}" target="_blank" class="doc-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: bold; font-size: 1.1rem; color: #0284c7;">[{doc_cat}] {doc_title}</span>
+                            <span style="font-size: 0.85rem; color: #64748b;">⚙️ 출처: {doc_source} | 📅 등록일: {doc_date} ↗</span>
+                        </div>
+                    </a>
+                """, unsafe_allow_html=True)
         else:
             st.info("포털 내부 데이터베이스에는 관련 문서가 없습니다. 아래 외부 포털 연계 버튼을 이용해 보세요.")
 
+        # 외부 검색 포털 바로가기 연계
         st.write("")
         st.markdown(f"#### 🔗 외부 포털에서 **'{search_query}'** 연계 검색하기")
         encoded_query = urllib.parse.quote(search_query)
@@ -266,5 +308,22 @@ if search_input or search_button:
         with ec4:
             st.link_button(f"📰 네이버 뉴스 검색", f"https://search.naver.com/search.naver?where=news&query={encoded_query}", use_container_width=True)
 else:
-    st.subheader("📋 전체 기술 문서 목록")
-    st.dataframe(df, use_container_width=True)
+    st.subheader("📋 전체 기술 문서 목록 (클릭 시 외부 연계 검색 및 상세 내용 탐색 가능)")
+    # 메인 테이블 목록도 클릭 가능한 카드형식 레이아웃으로 변경
+    for _, row in df.iterrows():
+        doc_title = row['제목']
+        doc_source = row['출처']
+        doc_date = row['등록일']
+        doc_cat = row['분야']
+        
+        encoded_title = urllib.parse.quote(doc_title)
+        search_link = f"https://www.google.com/search?q={encoded_title}"
+        
+        st.markdown(f"""
+            <a href="{search_link}" target="_blank" class="doc-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-weight: bold; font-size: 1.1rem; color: #1e293b;">[{doc_cat}] {doc_title}</span>
+                    <span style="font-size: 0.85rem; color: #64748b;">⚙️ 출처: {doc_source} | 📅 등록일: {doc_date} ↗</span>
+                </div>
+            </a>
+        """, unsafe_allow_html=True)
