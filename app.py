@@ -6,135 +6,161 @@ from datetime import datetime, timedelta, timezone
 
 st.set_page_config(page_title="HANDS & AUTO TECH PORTAL", layout="wide", initial_sidebar_state="collapsed")
 
-# 세련되고 밝은 라이트 모던 테마 CSS
-css_style = """<style>
-/* 전체 배경 밝은 톤 적용 */
-.stApp {
-    background-color: #f8fafc;
-    color: #1e293b;
-}
+# 세련되고 밝은 라이트 모던 테마 CSS & 하이퍼링크 스타일링
+st.markdown("""
+    <style>
+    /* 전체 배경 밝은 톤 적용 */
+    .stApp {
+        background-color: #f8fafc;
+        color: #1e293b;
+    }
+    
+    /* 실시간 뉴스 롤링 배너 스타일 */
+    .ticker-container {
+        background: #1e293b;
+        color: #ffffff;
+        padding: 12px 20px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        text-decoration: none;
+        transition: transform 0.1s ease;
+    }
+    .ticker-container:hover {
+        transform: translateY(-2px);
+    }
+    .ticker-badge {
+        background-color: #03cf5d;
+        color: #ffffff;
+        font-weight: bold;
+        padding: 4px 10px;
+        border-radius: 4px;
+        margin-right: 15px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+    .ticker-text {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #f1f5f9;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
-/* 실시간 뉴스 롤링 배너 스타일 */
-.ticker-container {
-    background: #1e293b;
-    color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-.ticker-badge {
-    background-color: #03cf5d;
-    color: #ffffff;
-    font-weight: bold;
-    padding: 4px 10px;
-    border-radius: 4px;
-    margin-right: 15px;
-    font-size: 0.85rem;
-    white-space: nowrap;
-}
-.ticker-text {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #f1f5f9;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+    /* 핸즈 휠 이미지가 적용된 메인 히어로 배너 */
+    .hero-banner {
+        background: linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%), 
+                    url('https://raw.githubusercontent.com/kta0714/auto-wheel-portal/main/original.png');
+        background-size: cover;
+        background-position: center;
+        padding: 50px 40px;
+        border-radius: 16px;
+        color: #ffffff;
+        margin-bottom: 25px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        display: block;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+    .hero-banner:hover {
+        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        filter: brightness(1.03);
+    }
+    .hero-title {
+        color: #ffffff;
+        font-size: 2.6rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .hero-subtitle {
+        color: #38bdf8;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    .hero-desc {
+        color: #e2e8f0;
+        font-size: 0.95rem;
+        max-width: 700px;
+        line-height: 1.5;
+    }
 
-/* 핸즈 휠 이미지가 적용된 메인 히어로 배너 */
-.hero-banner {
-    background: linear-gradient(90deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 100%),
-                url('https://raw.githubusercontent.com/kta0714/auto-wheel-portal/main/original.png');
-    background-size: cover;
-    background-position: center;
-    padding: 50px 40px;
-    border-radius: 16px;
-    color: #ffffff;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-.hero-title {
-    color: #ffffff;
-    font-size: 2.6rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-.hero-subtitle {
-    color: #38bdf8;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-.hero-desc {
-    color: #e2e8f0;
-    font-size: 0.95rem;
-    max-width: 700px;
-    line-height: 1.5;
-}
+    /* 날씨 카드 */
+    .weather-card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 14px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+    
+    /* 뉴스 카드 스타일 (클릭 가능 링크) */
+    .news-box {
+        background-color: #ffffff;
+        border-left: 4px solid #0284c7;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        display: block;
+        text-decoration: none;
+        color: #1e293b;
+        transition: all 0.15s ease;
+    }
+    .news-box:hover {
+        background-color: #f1f5f9;
+        border-left-color: #03cf5d;
+        color: #0284c7;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-/* 날씨 및 카드 스타일 */
-.weather-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 14px;
-    text-align: center;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-}
+# 1. 네이버 스타일 실시간 뉴스 롤링 배너 (클릭 시 뉴스 검색으로 연결)
+st.markdown("""
+    <a href="https://search.naver.com/search.naver?where=news&query=%ED%95%B8%EC%AF%88%EC%BD%94%ED%8D%BC%EB%A0%88%EC%9D%B4%EC%85%98" target="_blank" style="text-decoration: none;">
+        <div class="ticker-container">
+            <div class="ticker-badge">⚡ 실시간 속보</div>
+            <div class="ticker-text">[핸즈코퍼레이션] 모로코 탕헤르 공장 자동화 OEM 알루미늄 휠 라인 가동률 최적화 추진 &nbsp;|&nbsp; [현대차그룹] EV 전용 고강도 경량 휠 표준 규격 발표</div>
+        </div>
+    </a>
+""", unsafe_allow_html=True)
 
-/* 뉴스 카드 스타일 */
-.news-box {
-    background-color: #ffffff;
-    border-left: 4px solid #0284c7;
-    padding: 12px 16px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-}
-</style>"""
-st.markdown(css_style, unsafe_allow_html=True)
+# 2. 핸즈 휠 히어로 배너 (클릭 시 핸즈코퍼레이션 공식 홈페이지로 연결)
+st.markdown("""
+    <a href="http://www.handscorp.co.kr" target="_blank" class="hero-banner">
+        <div class="hero-title">🛞 HANDS & AUTO TECH PORTAL</div>
+        <div class="hero-subtitle">Creative all by HANDS — 글로벌 OEM 알루미늄 휠 기술 포털 ↗</div>
+        <div class="hero-desc">
+            핸즈코퍼레이션 본사 및 모로코 탕헤르 연간 300만 개 캐파 전용 포털<br>
+            저압주조(LPDC) · 단조 · T6 열처리 · IATF 16949 / ISO 품질·환경 표준 통합 매뉴얼 (클릭 시 공식 홈페이지 이동)
+        </div>
+    </a>
+""", unsafe_allow_html=True)
 
-# 1. 네이버 스타일 실시간 뉴스 롤링 배너
-ticker_html = """<div class='ticker-container'>
-    <div class='ticker-badge'>⚡ 실시간 속보</div>
-    <div class='ticker-text'>[핸즈코퍼레이션] 모로코 탕헤르 공장 자동화 OEM 알루미늄 휠 라인 가동률 최적화 추진 &nbsp;|&nbsp; [현대차그룹] EV 전용 고강도 경량 휠 표준 규격 발표</div>
-</div>"""
-st.markdown(ticker_html, unsafe_allow_html=True)
-
-# 2. 핸즈 휠 이미지 전면 적용 히어로 배너
-hero_html = """<div class='hero-banner'>
-    <div class='hero-title'>🛞 HANDS & AUTO TECH PORTAL</div>
-    <div class='hero-subtitle'>Creative all by HANDS — 글로벌 OEM 알루미늄 휠 기술 포털</div>
-    <div class='hero-desc'>
-        핸즈코퍼레이션 본사 및 모로코 탕헤르 연간 300만 개 캐파 전용 포털<br>
-        저압주조(LPDC) · 단조 · T6 열처리 · IATF 16949 / ISO 품질·환경 표준 통합 매뉴얼
-    </div>
-</div>"""
-st.markdown(hero_html, unsafe_allow_html=True)
-
-# 3. 주요 실시간 뉴스 섹션 (국내/해외)
+# 3. 주요 실시간 뉴스 섹션 (국내/해외 클릭 링크 반영)
 st.subheader("📰 자동차 및 부품 제조업 주요 뉴스")
 n_tab1, n_tab2 = st.tabs(["🇰🇷 국내 주요 뉴스", "🌐 해외 주요 뉴스"])
 
 with n_tab1:
-    st.markdown("<div class='news-box'><b>[핸즈코퍼레이션]</b> 모로코 탕헤르 공장 연간 300만개 캐파 고강도 LPDC 휠 품질 안정화</div>", unsafe_allow_html=True)
-    st.markdown("<div class='news-box'><b>[현대차/기아]</b> E-GMP 차세대 전기차용 대구경 알루미늄 휠 내구성 최신 기준 수립</div>", unsafe_allow_html=True)
-    st.markdown("<div class='news-box'><b>[제조업/인증]</b> 자동차 부품사 대상 IATF 16949 & ISO 14001 통합 심사 가이드라인</div>", unsafe_allow_html=True)
+    st.markdown("<a href='https://search.naver.com/search.naver?where=news&query=%ED%95%B8%EC%AF%88%EC%BD%94%ED%8D%BC%EB%A0%88%EC%9D%B4%EC%85%98+%EB%AA%A8%EB%A1%9C%EC%BD%94' target='_blank' class='news-box'><b>[핸즈코퍼레이션]</b> 모로코 탕헤르 공장 연간 300만개 캐파 고강도 LPDC 휠 품질 안정화 ↗</a>", unsafe_allow_html=True)
+    st.markdown("<a href='https://search.naver.com/search.naver?where=news&query=%ED%98%84%EB%8C%80%EC%B0%A8+%EC%95%8C%EB%A3%A8%EB%AF%B8%EB%80%B8+%ED%9C%A1' target='_blank' class='news-box'><b>[현대차/기아]</b> E-GMP 차세대 전기차용 대구경 알루미늄 휠 내구성 최신 기준 수립 ↗</a>", unsafe_allow_html=True)
+    st.markdown("<a href='https://search.naver.com/search.naver?where=news&query=IATF16949+%EC%9E%90%EB%8F%99%EC%B0%A8' target='_blank' class='news-box'><b>[제조업/인증]</b> 자동차 부품사 대상 IATF 16949 & ISO 14001 통합 심사 가이드라인 ↗</a>", unsafe_allow_html=True)
 
 with n_tab2:
-    st.markdown("<div class='news-box'><b>[EU 규제]</b> 탄소중립 대응을 위한 알루미늄 재활용 휠 및 친환경 주조 공정 확대</div>", unsafe_allow_html=True)
-    st.markdown("<div class='news-box'><b>[Morocco Auto]</b> 탕헤르 자동차 산업단지 글로벌 OEM 부품 공급망 강화</div>", unsafe_allow_html=True)
-    st.markdown("<div class='news-box'><b>[Global OEM]</b> 테슬라·도요타, 차세대 EV 전동화 플랫폼 경량화 휠 채택 발표</div>", unsafe_allow_html=True)
+    st.markdown("<a href='https://www.google.com/search?q=EU+automobile+aluminum+wheel+carbon+neutral' target='_blank' class='news-box'><b>[EU 규제]</b> 탄소중립 대응을 위한 알루미늄 재활용 휠 및 친환경 주조 공정 확대 ↗</a>", unsafe_allow_html=True)
+    st.markdown("<a href='https://www.google.com/search?q=Tangier+Automotive+City+Hands+Corp' target='_blank' class='news-box'><b>[Morocco Auto]</b> 탕헤르 자동차 산업단지 글로벌 OEM 부품 공급망 강화 ↗</a>", unsafe_allow_html=True)
+    st.markdown("<a href='https://www.google.com/search?q=Tesla+Toyota+aluminum+wheel+spec' target='_blank' class='news-box'><b>[Global OEM]</b> 테슬라·도요타, 차세대 EV 전동화 플랫폼 경량화 휠 채택 발표 ↗</a>", unsafe_allow_html=True)
 
 st.markdown("---")
 
 # 4. 모로코 탕헤르(Tangier) 현지 시각 및 일주일 날씨
-morocco_tz = timezone(timedelta(hours=1))
+morocco_tz = timezone(timedelta(hours=1)) # Tangier UTC+1
 tangier_time = datetime.now(morocco_tz)
 
 st.subheader("🇲🇦 모로코 탕헤르(Tangier) 현지 시각 & 주간 날씨 예보")
@@ -153,8 +179,13 @@ weather_data = [
 w_cols = st.columns(7)
 for idx, w in enumerate(weather_data):
     with w_cols[idx]:
-        html_code = f"<div class='weather-card'><div style='font-size:0.85rem; color:#aaa;'>{w['day']}</div><div style='font-size:1.2rem; margin:5px 0;'>{w['weather']}</div><div style='font-size:0.8rem; font-weight:bold;'>{w['temp']}</div></div>"
-        st.markdown(html_code, unsafe_allow_html=True)
+        st.markdown(f"""
+            <div class='weather-card'>
+                <div style='font-size:0.85rem; color:#64748b; font-weight:600;'>{w['day']}</div>
+                <div style='font-size:1.2rem; margin:6px 0;'>{w['weather']}</div>
+                <div style='font-size:0.85rem; color:#0f172a; font-weight:bold;'>{w['temp']}</div>
+            </div>
+        """, unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -177,6 +208,19 @@ with b_col6:
 
 st.write("")
 
+# 6. 검색창 (엔터 + 돋보기 검색)
+st.subheader("🔎 기술 정보 및 데이터 검색")
+s_col1, s_col2 = st.columns([5, 1])
+
+with s_col1:
+    search_input = st.text_input("검색어 입력", placeholder="예: 핸즈, 핸즈코퍼레이션, 현대차, 주조, 열처리, A356, IATF...", label_visibility="collapsed")
+with s_col2:
+    search_button = st.button("🔍 돋보기 검색", use_container_width=True)
+
+st.caption("💡 인기 키워드: 핸즈 | 핸즈코퍼레이션 | 모로코 | 현대자동차 | 저압 주조 | T6 열처리 | IATF 16949")
+st.markdown("---")
+
+# 데이터베이스
 @st.cache_data
 def load_data():
     return pd.DataFrame([
@@ -188,51 +232,50 @@ def load_data():
         {"분야": "알루미늄 휠", "제목": "A356 알루미늄 합금 용탕 처리 및 기포(Porosity) 결함 방지 주조 공정", "출처": "주조공학저널", "등록일": "2026-03-22"},
         {"분야": "자동차 OEM", "제목": "현대자동차 / 현대차그룹 E-GMP 3세대 차세대 알루미늄 휠 내구성 규격", "출처": "HMG Tech", "등록일": "2026-04-01"},
         {"분야": "제조업/인증", "제목": "자동차 부품 제조업을 위한 IATF 16949 & ISO 14001 품질인증 실무 가이드", "출처": "품질인증원", "등록일": "2026-01-15"},
-        {"분야": "자동차 OEM", "제목": "도요타 차세대 EV 전동화 플랫폼용 경량 알루미늄 휠 기공 분석 리포트", "출처": "Toyota Times", "등록일": "2026-02-10"},
-        {"분야": "제조업/소재", "제목": "알루미늄 휠 절삭 가공 시 공구 마모 절감 및 표면 거칠기 개선 연구", "출처": "한국공학회", "등록일": "2026-03-05"}
+        {"분야": "자동차 OEM", "제목": "도요타 차세대 EV 전동화 플랫폼용 경량 알루미늄 휠 기공 분석 리포트", "출처": "Toyota Times", "등록일": "2026-02-10"}
     ])
 
 df = load_data()
 
-search_query = st.text_input("🔍 기술 정보, 주조/단조, IATF 규격, OEM, 회사명을 검색하세요", placeholder="예: 핸즈, 핸즈코퍼레이션, 현대차, 주조, 열처리...")
-st.caption("💡 추천 검색어: 핸즈 | 핸즈코퍼레이션 | 현대자동차 | 알루미늄 휠 | 저압 주조 | T6 열처리")
-st.markdown("---")
+# 검색 실행 로직
+if search_input or search_button:
+    search_query = search_input.strip()
+    if search_query:
+        query_terms = [search_query]
+        if "현대자동차" in search_query:
+            query_terms.append("현대차")
+        elif "현대차" in search_query:
+            query_terms.append("현대자동차")
+        elif "핸즈" in search_query:
+            query_terms.append("핸즈코퍼레이션")
 
-if search_query:
-    query_terms = [search_query.strip()]
-    if "현대자동차" in search_query:
-        query_terms.append("현대차")
-    elif "현대차" in search_query:
-        query_terms.append("현대자동차")
-    elif "핸즈" in search_query:
-        query_terms.append("핸즈코퍼레이션")
+        pattern = "|".join(query_terms)
+        filtered_df = df[
+            df['제목'].str.contains(pattern, case=False, na=False) |
+            df['분야'].str.contains(pattern, case=False, na=False) |
+            df['출처'].str.contains(pattern, case=False, na=False)
+        ]
 
-    pattern = "|".join(query_terms)
-    filtered_df = df[
-        df['제목'].str.contains(pattern, case=False, na=False) |
-        df['분야'].str.contains(pattern, case=False, na=False) |
-        df['출처'].str.contains(pattern, case=False, na=False)
-    ]
+        st.subheader(f"🔍 내부 포털 '{search_query}' 검색 결과 ({len(filtered_df)}건)")
+        if len(filtered_df) > 0:
+            st.dataframe(filtered_df, use_container_width=True)
+        else:
+            st.info("포털 내부 데이터베이스에는 관련 문서가 없습니다. 아래 외부 포털 연계 버튼을 이용해 보세요.")
 
-    st.subheader(f"🔍 내부 포털 '{search_query}' 검색 결과 ({len(filtered_df)}건)")
-    if len(filtered_df) > 0:
-        st.dataframe(filtered_df, use_container_width=True)
-    else:
-        st.info("포털 내부 데이터베이스에는 관련 문서가 없습니다. 아래 외부 검색엔진 연계 버튼을 이용해 보세요.")
-
-    st.write("")
-    st.markdown(f"#### 🔗 외부 포털에서 **'{search_query}'** 연계 검색하기")
-    encoded_query = urllib.parse.quote(search_query)
-    
-    ec1, ec2, ec3, ec4 = st.columns(4)
-    with ec1:
-        st.link_button(f"💚 네이버에서 '{search_query}' 검색", f"https://search.naver.com/search.naver?query={encoded_query}", use_container_width=True)
-    with ec2:
-        st.link_button(f"🔍 구글에서 '{search_query}' 검색", f"https://www.google.com/search?q={encoded_query}", use_container_width=True)
-    with ec3:
-        st.link_button(f"📜 KIPRIS 특허 검색", f"http://www.kipris.or.kr/khnp/search/searchResult.do?query={encoded_query}", use_container_width=True)
-    with ec4:
-        st.link_button(f"📰 네이버 뉴스 검색", f"https://search.naver.com/search.naver?where=news&query={encoded_query}", use_container_width=True)
+        # 외부 검색 포털 바로가기 연계
+        st.write("")
+        st.markdown(f"#### 🔗 외부 포털에서 **'{search_query}'** 연계 검색하기")
+        encoded_query = urllib.parse.quote(search_query)
+        
+        ec1, ec2, ec3, ec4 = st.columns(4)
+        with ec1:
+            st.link_button(f"💚 네이버 검색", f"https://search.naver.com/search.naver?query={encoded_query}", use_container_width=True)
+        with ec2:
+            st.link_button(f"🔍 구글 검색", f"https://www.google.com/search?q={encoded_query}", use_container_width=True)
+        with ec3:
+            st.link_button(f"📜 KIPRIS 특허 검색", f"http://www.kipris.or.kr/khnp/search/searchResult.do?query={encoded_query}", use_container_width=True)
+        with ec4:
+            st.link_button(f"📰 네이버 뉴스 검색", f"https://search.naver.com/search.naver?where=news&query={encoded_query}", use_container_width=True)
 else:
-    st.subheader("📋 전체 제조업 및 알루미늄 휠 기술 정보 목록")
+    st.subheader("📋 전체 기술 문서 목록")
     st.dataframe(df, use_container_width=True)
